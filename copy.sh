@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in `ls -d .[a-z]*|grep -v git` 
+for file in `cd ~/dotfiles/ && ls -d .[a-z]*|grep -v git` 
 do
 	if [ -f ~/${file} ]; then
 		if [ ! -h ~/${file} ]; then
