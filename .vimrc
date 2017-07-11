@@ -57,6 +57,7 @@ set noswapfile
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
+set expandtab
 
 set ai "Auto indent
 "set si "Smart indent
