@@ -72,6 +72,9 @@ else
 fi
 unset color_prompt force_color_prompt
 
+# Add /opt/manu_scripts in path
+export PATH=$PATH:/opt/manu_scripts
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
