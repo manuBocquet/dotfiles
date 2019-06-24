@@ -54,6 +54,10 @@ if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 fi
 
+PIP="pip3.6"
+if [[ -f "~/.dotfiles" ]];then
+    . ~/.dotfiles
+fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -67,7 +71,7 @@ fi
 
 #------------------------------------------------------------------------
 # Enable powerline if installed 
-PIP="pip3.6"
+
 command -v $PIP >/dev/null 2>&1
 if [[ $? -eq 0 ]]; then
     repository_root=$($PIP show powerline-status 2>/dev/null | awk '/Location:/ {print $2}')
