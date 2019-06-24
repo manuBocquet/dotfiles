@@ -1,7 +1,16 @@
 #!/bin/bash
 
+PIP="pip3.6"
+PYTHON="python3.6"
+
+cd ~
+if [[ -f ".dotfiles" ]];then
+    source .dotfiles
+fi
+
 function myreplace {
     file=$1
+    source=$2
     cd ~
     if [[ ! -L "$file" ]]; then
         cd ~
@@ -9,10 +18,24 @@ function myreplace {
             mv "$1" "$1.orig"
         fi
         echo "Set $1"
-        ln -s "./dotfiles/$1" "$1"
+        ln -s "$2" "$1"
     fi
 }
 
-#if [[ ! -L "~/.bashrc" ]]; then
-myreplace ".bashrc"
-myreplace ".bash_aliases"
+myreplace ".bashrc" "./dotfiles/.bashrc"
+myreplace ".bash_aliases" "./dotfiles/.bash_aliases"
+
+command -v powerline-daemon >/dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+    rep=$($PIP show powerline-status 2>/dev/null | awk '/Location:/ {print $2}')
+    rm .vimrc 2>/dev/null
+    cp ./dotfiles/.vimrc_powerline .vimrc
+    sed -i "s|repository_root|$rep|g" .vimrc
+    cp ./dotfiles/.tmux_powerline.conf .tmux.conf
+    sed -i "s|repository_root|$rep|g" .tmux.conf
+else
+    myreplace ".vimrc" "./dotfiles/.vimrc"
+    myreplace ".tmux.conf" "./dotfiles/.tmux.conf"
+fi
+
+rsync -a ./dotfiles/.config ./.config

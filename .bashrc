@@ -64,3 +64,27 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+#------------------------------------------------------------------------
+# Enable powerline if installed 
+PIP="pip3.6"
+command -v $PIP >/dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+    repository_root=$($PIP show powerline-status 2>/dev/null | awk '/Location:/ {print $2}')
+    powerline-daemon -q
+    POWERLINE_BASH_CONTINUATION=1
+    POWERLINE_BASH_SELECT=1
+    . ${repository_root}/powerline/bindings/bash/powerline.sh
+else
+    echo "$PIP/powerline not found"
+    EE=""
+    if [ "$color_prompt" = yes ]; then
+        PS1='\[\033[01;31m\]${EE}\[\033[00m\][\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ '
+    else
+        PS1='${EE}\u@\h:\w \$ '
+    fi
+unset color_prompt force_color_prompt
+fi
+
+
+
