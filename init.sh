@@ -3,6 +3,11 @@
 BASEDIR=$(dirname "$0")
 PIP="pip3.6"
 
+cd ~
+if [[ -f ".dotfiles" ]];then
+    source .dotfiles
+fi
+
 cd $BASEDIR
 
 if [[ $EUID -eq 0 ]]; then
