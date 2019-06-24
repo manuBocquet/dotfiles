@@ -1,16 +1,15 @@
-#!/bin/sh
-
-BASEDIR=$(dirname "$0")
-cd $BASEDIR/..
-pwd
+#!/bin/bash
 
 function myreplace {
     file=$1
-    if [[ ! -L "~/$1" && -f "$1" ]]; then
-        if [[ -f "~/$1" ]]; then
-            mv "~/$1" "~/$1.orig"
+    cd ~
+    if [[ ! -L "$file" ]]; then
+        cd ~
+        if [[ -f "$1" ]]; then
+            mv "$1" "$1.orig"
         fi
-        ln -s "$1" "~/$1"
+        echo "Set $1"
+        ln -s "./dotfiles/$1" "$1"
     fi
 }
 
