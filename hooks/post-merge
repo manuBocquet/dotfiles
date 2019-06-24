@@ -16,3 +16,4 @@ function myreplace {
 
 #if [[ ! -L "~/.bashrc" ]]; then
 myreplace ".bashrc"
+myreplace ".bash_aliases"
