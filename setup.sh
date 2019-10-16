@@ -4,8 +4,8 @@ BASEDIR=$(dirname "$0")
 PIP="pip3"
 
 cd ~
-if [[ -f ".dotfiles" ]];then
-    source ~/.dotfiles
+if [[ -f ".bashrc_local" ]];then
+    source ~/.bashrc_local
 fi
 
 if [[ $EUID -eq 0 ]]; then
@@ -21,10 +21,11 @@ if [[ $EUID -eq 0 ]]; then
     fi
 fi
 
+cd ~/dotfiles
+
 if [[ ! -L ".git/hooks" ]]; then
     mv .git/hooks .git/hooks.orig
     ln -s ../hooks .git/hooks
-    ./hooks/post-merge
 fi
 
 ./hooks/post-merge
