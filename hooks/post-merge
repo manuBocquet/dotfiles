@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PIP="pip3.6"
-PYTHON="python3.6"
+PIP="pip3"
+PYTHON="python3"
 
 cd ~
 if [[ -f ".dotfiles" ]];then
@@ -23,6 +23,7 @@ function myreplace {
 }
 
 myreplace ".bashrc" "./dotfiles/.bashrc"
+myreplace ".bash_profile" "./dotfiles/.bash_profile"
 myreplace ".bash_aliases" "./dotfiles/.bash_aliases"
 
 command -v powerline-daemon >/dev/null 2>&1
@@ -33,11 +34,10 @@ if [[ $? -eq 0 ]]; then
     sed -i "s|repository_root|$rep|g" .vimrc
     cp ./dotfiles/.tmux_powerline.conf .tmux.conf
     sed -i "s|repository_root|$rep|g" .tmux.conf
-    cp ./dotfiles/tmux_default.json $rep/powerline/config_files/themes/tmux/default.json ./tmux_default.json
    # http://immutables.pl/2015/12/12/tmux-powerline-zsh-osx/
 else
     myreplace ".vimrc" "./dotfiles/.vimrc"
     myreplace ".tmux.conf" "./dotfiles/.tmux.conf"
 fi
 
-rsync -a ./dotfiles/.config ./.config
+rsync -a ./dotfiles/.config/ ./.config/

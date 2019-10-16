@@ -1,17 +1,14 @@
 #!/bin/sh
 
 BASEDIR=$(dirname "$0")
-PIP="pip3.6"
+PIP="pip3"
 
-cd ~
+cd $BASEDIR
 if [[ -f ".dotfiles" ]];then
     source .dotfiles
 fi
 
-cd $BASEDIR
-
 if [[ $EUID -eq 0 ]]; then
-
     command -v $PIP >/dev/null 2>&1
     if [[ $? -eq 0 ]]; then
         command -v powerline-daemon >/dev/null 2>&1
@@ -28,5 +25,6 @@ if [[ ! -L ".git/hooks" ]]; then
     mv .git/hooks .git/hooks.orig
     ln -s ../hooks .git/hooks
     ./hooks/post-merge
-    . ~/.bashrc
 fi
+
+./hooks/post-merge
