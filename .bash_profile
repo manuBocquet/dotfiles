@@ -5,6 +5,10 @@ PIP="pip3"
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 
+if [[ -f ~/.bashrc_local ]]; then
+    . ~/.bashrc_local
+fi
+
 command -v $PIP >/dev/null 2>&1
 if [[ $? -eq 0 ]]; then
     repository_root=$($PIP show powerline-status 2>/dev/null | awk '/Location:/ {print $2}')

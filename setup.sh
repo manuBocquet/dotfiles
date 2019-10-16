@@ -3,9 +3,9 @@
 BASEDIR=$(dirname "$0")
 PIP="pip3"
 
-cd $BASEDIR
+cd ~
 if [[ -f ".dotfiles" ]];then
-    source .dotfiles
+    source ~/.dotfiles
 fi
 
 if [[ $EUID -eq 0 ]]; then

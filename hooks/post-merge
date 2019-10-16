@@ -1,25 +1,32 @@
 #!/bin/bash
 
 PIP="pip3"
-PYTHON="python3"
 
 cd ~
-if [[ -f ".dotfiles" ]];then
-    source .dotfiles
+if [[ -f ".bashrc_local" ]];then
+    source .bashrc_local
 fi
+
+function mkeep {
+    if [[ -L "$1" ]]; then
+        rm "$1"
+    fi
+    if [[ -e "$1" ]]; then
+        if [[ -f "$1.orig" ]]; then
+            rm "$1"
+        else
+            mv "$1" "$1.orig"
+        fi
+    fi
+}
 
 function myreplace {
     file=$1
     source=$2
     cd ~
-    if [[ ! -L "$file" ]]; then
-        cd ~
-        if [[ -f "$1" ]]; then
-            mv "$1" "$1.orig"
-        fi
-        echo "Set $1"
-        ln -s "$2" "$1"
-    fi
+    mkeep "$1"
+    echo "Set $1"
+    ln -s "$2" "$1"
 }
 
 myreplace ".bashrc" "./dotfiles/.bashrc"
@@ -29,9 +36,10 @@ myreplace ".bash_aliases" "./dotfiles/.bash_aliases"
 command -v powerline-daemon >/dev/null 2>&1
 if [[ $? -eq 0 ]]; then
     rep=$($PIP show powerline-status 2>/dev/null | awk '/Location:/ {print $2}')
-    rm .vimrc 2>/dev/null
+    mkeep .vimrc
     cp ./dotfiles/.vimrc_powerline .vimrc
     sed -i "s|repository_root|$rep|g" .vimrc
+    mkeep .tmux.conf
     cp ./dotfiles/.tmux_powerline.conf .tmux.conf
     sed -i "s|repository_root|$rep|g" .tmux.conf
    # http://immutables.pl/2015/12/12/tmux-powerline-zsh-osx/
