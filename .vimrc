@@ -13,7 +13,10 @@ nmap <leader>w :w!<cr>
 "Show matching brackets
 set showmatch
 "Set paste
-set paste
+"set paste
+set nocompatible
+set undofile
+set undodir=~/.vimundo
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -58,6 +61,8 @@ set ai "Auto indent
 "set si "Smart indent
 set wrap "Wrap lines
 nnoremap <F2> :set invpaste paste?<CR>
+nnoremap <F3> :set hlsearch!<CR>
+
 "set pastetoggle=<F2>
 set showmode
 " Smart way to move between windows
@@ -76,6 +81,10 @@ map <leader>s  :sp
 map <leader><up> <C-W><C-K>
 map <leader><down> <C-W><C-J>
 
+" highlighting for any non ascii char.
+syntax match nonascii "[^\x00-\x7F]"
+highlight nonascii guibg=Red ctermbg=2
+
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -84,21 +93,55 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
-"Function to show whether  you are in paste mode or not
-function! HasPaste()
-        if &paste
-                return 'PASTE MODE  i'
-        else
-                return ''
-        endif
+" Git
+function! StatuslineGit()
+  let l:branchname = trim(system(printf("cd %s && git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'", expand('%:p:h:S'))))
+  let b:branchname = strlen(l:branchname) > 0?' [Branch:'.l:branchname.'-':'['
 endfunction
-" Format the status line
-set statusline=\ \ %{HasPaste()}%f\ %=%m%r%h%w%y\ %4c\|%5l\/%L\ 
+autocmd BufEnter,BufWritePost * call StatuslineGit()
+
+function! StatuslineGit2()
+  let l:gitstatus = trim(system(printf("cd %s && git status --porcelain 2>/dev/null", expand('%:p:h:S'))))
+  let b:gitstatus = strlen(l:gitstatus) > 0 ? 'changed]':']'
+endfunction
+autocmd BufEnter,BufWritePost * call StatuslineGit2()
+
+set cursorline
+hi CursorLine ctermbg=238 cterm=None term=None
+hi StatusLine ctermbg=10 ctermfg=8
+hi StatusLine2 ctermbg=8 ctermfg=7
+hi StatusLine3 ctermbg=8 ctermfg=245
+hi StatusLine4 ctermbg=8 ctermfg=10
+
+"set statusline=%#StatusLine#
+"set statusline+=%-30f     " file name
+"set statusline+=%=
+"set statusline+=%-4m         "modified flag
+"set statusline+=%#StatusLine2#
+"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+"set statusline+=\ %{&ff}]\  "file format
+"set statusline+=%-8y      "help file flag
+"set statusline+=%r         "read only flag
+"set statusline+=%{&paste?'[Paste]\ ':''}
+"set statusline+=%#StatusLine4#
+"set statusline+=%{b:branchname}
+"set statusline+=%-20{b:gitstatus}
+"set statusline+=%#StatusLine2#
+"set statusline+=[%5l\:%3c]
+"set statusline+=%#StatusLine3#
+"set statusline+=\ %3p%%
+
+set statusline=
+set statusline+=%0*\[%n]                                  "buffernr
+set statusline+=\ %<%F\                                "File+path
+set statusline+=%=
+set statusline+=\ %y\                                  "FileType
+set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..) 
+set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+set statusline+=\ col:%03c\                            "Colnr
+set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+
+set laststatus=2
 set t_Co=256
-hi StatusLine ctermbg=white ctermfg=8
-" hi StatusLine ctermbg=white ctermfg=59m
