@@ -1,7 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -13,19 +9,22 @@ if [[ -f /etc/bashrc ]]; then
     . /etc/bashrc
 fi
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# Some settings ...
+TTY=`tty`
+REAL_USER=`ls -la ${TTY} | awk '{print $3}'`
+EDITOR=vim
+LSCOLORS=GxFxCxDxBxegedabagaced
+HISTTIMEFORMAT="%Y-%m-%d %T "
+GREP_OPTIONS='--color=always'
+
+# History - don't put duplicate lines or lines starting with space in the history.
+HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 HISTCONTROL=erasedups
-TTY=`tty`
-REAL_USER=`ls -la ${TTY} | awk '{print $3}'`
 HISTFILE=~/.history_${REAL_USER}
 
 # check the window size after each command and, if necessary,
@@ -36,22 +35,18 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [[ -f ~/.bash_aliases ]]; then
     . ~/.bash_aliases
 fi
 
 # Specific bashrc definitions
-
 if [[ -f ~/.bashrc_local ]]; then
     . ~/.bashrc_local
 fi
 
+# My python prompt
 if [[ -f ~/dotfiles/prompt.sh ]]; then
-    source ~/dotfiles/prompt.sh
+    . ~/dotfiles/prompt.sh
 fi
 
 # enable programmable completion features (you don't need to enable

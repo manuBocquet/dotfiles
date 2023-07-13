@@ -7,3 +7,4 @@ if [[ ! -L ".git/hooks" ]]; then
     ln -s ../hooks .git/hooks
 fi
 
+cp -p .bash* .vim* .tmux* ~/
