@@ -29,23 +29,11 @@ function myreplace {
     ln -s "$2" "$1"
 }
 
+echo "Apply hooks/post-merge"
 myreplace ".bashrc" "./dotfiles/.bashrc"
 myreplace ".bash_profile" "./dotfiles/.bash_profile"
 myreplace ".bash_aliases" "./dotfiles/.bash_aliases"
+myreplace ".vimrc" "./dotfiles/.vimrc"
+myreplace ".tmux.conf" "./dotfiles/.tmux.conf"
 
-command -v powerline-daemon >/dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-    rep=$($PIP show powerline-status 2>/dev/null | awk '/Location:/ {print $2}')
-    mkeep .vimrc
-    cp ./dotfiles/.vimrc_powerline .vimrc
-    sed -i "s|repository_root|$rep|g" .vimrc
-    mkeep .tmux.conf
-    cp ./dotfiles/.tmux_powerline.conf .tmux.conf
-    sed -i "s|repository_root|$rep|g" .tmux.conf
-   # http://immutables.pl/2015/12/12/tmux-powerline-zsh-osx/
-else
-    myreplace ".vimrc" "./dotfiles/.vimrc"
-    myreplace ".tmux.conf" "./dotfiles/.tmux.conf"
-fi
-
-rsync -a ./dotfiles/.config/ ./.config/
+source ~/.bashrc

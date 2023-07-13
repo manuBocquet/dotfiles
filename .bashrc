@@ -13,10 +13,6 @@ if [[ -f /etc/bashrc ]]; then
     . /etc/bashrc
 fi
 
-if [[ "${POWERLINE_BASH_SELECT}" -ne "" ]]; then
-    . ${repository_root}/powerline/bindings/bash/powerline.sh
-fi
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -27,6 +23,7 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
+HISTCONTROL=erasedups
 TTY=`tty`
 REAL_USER=`ls -la ${TTY} | awk '{print $3}'`
 HISTFILE=~/.history_${REAL_USER}
@@ -51,6 +48,10 @@ fi
 
 if [[ -f ~/.bashrc_local ]]; then
     . ~/.bashrc_local
+fi
+
+if [[ -f ~/dotfiles/prompt.sh ]]; then
+    source ~/dotfiles/prompt.sh
 fi
 
 # enable programmable completion features (you don't need to enable

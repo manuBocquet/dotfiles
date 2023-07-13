@@ -11,4 +11,5 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
+alias df='df -hTl'
+alias dfx='df -hTlt xfs'
