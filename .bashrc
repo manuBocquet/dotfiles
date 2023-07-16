@@ -16,7 +16,7 @@ shopt -s histappend
 TTY=`tty`
 REAL_USER=`ls -la ${TTY} | awk '{print $3}'`
 EDITOR=vim
-LSCOLORS=GxFxCxDxBxegedabagaced
+LSCOLORS='di=34:ln=32:so=32:pi=33:ex=33:bd=34:cd=34:su=31:sg=31:tw=32:ow=32'
 HISTTIMEFORMAT="%Y-%m-%d %T "
 GREP_OPTIONS='--color=always'
 
