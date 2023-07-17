@@ -103,14 +103,14 @@ set viminfo^=%
 " Git
 function! StatuslineGit()
   let l:branchname = trim(system(printf("cd %s && git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'", expand('%:p:h:S'))))
-  let b:branchname = strlen(l:branchname) > 0?' [ git: '.l:branchname.' - ':''
+  let b:branchname = strlen(l:branchname) > 0?' [ git: '.l:branchname.' ':' [ '
 endfunction
 autocmd BufEnter,BufWritePost * call StatuslineGit()
 
 function! StatuslineGit2()
   let l:gitstatus = trim(system(printf("cd %s && git status --porcelain 2>/dev/null", expand('%:p:h:S'))))
   "let l:gitstatus = trim(system("git -C " . expand("%:p") . " branch --show-current 2>/dev/null"))
-  let b:gitstatus = strlen(l:gitstatus) > 0 ? 'changed ]':' no changed ]'
+  let b:gitstatus = strlen(l:gitstatus) > 0 ? ' - changed ]':' ]'
 endfunction
 autocmd BufEnter,BufWritePost * call StatuslineGit2()
 
