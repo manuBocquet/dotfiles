@@ -76,6 +76,9 @@ if len(error):
 
 print(" "*(int(nbcols)-right_len)+right,end = '',flush=True)
 subprocess.run(['tput', 'cub', str(nbcols)])
-out = cl(33)+' \A '+cl(81,1,fg=232)+' \\u@\\H '+cl(24,1,fg=255)+' \\w '+cl(-1,1)
+if os.environ.get('ENV'):
+    out = cl(166,fg=226)+" "+os.environ.get('ENV')+" "+cl(81,1,fg=232)+' \\u@\\H '+cl(24,1,fg=255)+' \\w '+cl(-1,1)
+else:
+    out = cl(33)+' \A '+cl(81,1,fg=232)+' \\u@\\H '+cl(24,1,fg=255)+' \\w '+cl(-1,1)
 print(out)
 print("$ ")

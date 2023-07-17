@@ -110,7 +110,7 @@ autocmd BufEnter,BufWritePost * call StatuslineGit()
 function! StatuslineGit2()
   let l:gitstatus = trim(system(printf("cd %s && git status --porcelain 2>/dev/null", expand('%:p:h:S'))))
   "let l:gitstatus = trim(system("git -C " . expand("%:p") . " branch --show-current 2>/dev/null"))
-  let b:gitstatus = strlen(l:gitstatus) > 0 ? 'changed ]':''
+  let b:gitstatus = strlen(l:gitstatus) > 0 ? 'changed ]':' no changed ]'
 endfunction
 autocmd BufEnter,BufWritePost * call StatuslineGit2()
 
