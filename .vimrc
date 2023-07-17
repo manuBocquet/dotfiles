@@ -70,6 +70,13 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Start by viewing the key code your terminal is sending to vim:
+" $ sed -n l
+" ^[[1;9D 
+
+map <Esc>^[^[[C :tabn<CR>
+
 map <silent> <leader><LEFT> :tabnext
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -96,13 +103,14 @@ set viminfo^=%
 " Git
 function! StatuslineGit()
   let l:branchname = trim(system(printf("cd %s && git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'", expand('%:p:h:S'))))
-  let b:branchname = strlen(l:branchname) > 0?' [Branch:'.l:branchname.'-':'['
+  let b:branchname = strlen(l:branchname) > 0?' [ git: '.l:branchname.' - ':''
 endfunction
 autocmd BufEnter,BufWritePost * call StatuslineGit()
 
 function! StatuslineGit2()
   let l:gitstatus = trim(system(printf("cd %s && git status --porcelain 2>/dev/null", expand('%:p:h:S'))))
-  let b:gitstatus = strlen(l:gitstatus) > 0 ? 'changed]':']'
+  "let l:gitstatus = trim(system("git -C " . expand("%:p") . " branch --show-current 2>/dev/null"))
+  let b:gitstatus = strlen(l:gitstatus) > 0 ? 'changed ]':''
 endfunction
 autocmd BufEnter,BufWritePost * call StatuslineGit2()
 
@@ -111,36 +119,30 @@ hi CursorLine ctermbg=238 cterm=None term=None
 hi StatusLine ctermbg=10 ctermfg=8
 hi StatusLine2 ctermbg=8 ctermfg=7
 hi StatusLine3 ctermbg=8 ctermfg=245
-hi StatusLine4 ctermbg=8 ctermfg=10
+hi StatusLine4 ctermbg=8 ctermfg=11
+hi StatusLine5 ctermbg=8 ctermfg=14
+hi StatusLine6 ctermbg=8 ctermfg=15
 
-"set statusline=%#StatusLine#
-"set statusline+=%-30f     " file name
-"set statusline+=%=
-"set statusline+=%-4m         "modified flag
-"set statusline+=%#StatusLine2#
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-"set statusline+=\ %{&ff}]\  "file format
-"set statusline+=%-8y      "help file flag
-"set statusline+=%r         "read only flag
-"set statusline+=%{&paste?'[Paste]\ ':''}
-"set statusline+=%#StatusLine4#
-"set statusline+=%{b:branchname}
-"set statusline+=%-20{b:gitstatus}
-"set statusline+=%#StatusLine2#
-"set statusline+=[%5l\:%3c]
-"set statusline+=%#StatusLine3#
-"set statusline+=\ %3p%%
+" https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim?file=Xterm-color-table.png
 
 set statusline=
-set statusline+=%0*\[%n]                                  "buffernr
+set statusline+=%#StatusLine6#
+set statusline+=\[%n]                                  "buffernr
 set statusline+=\ %<%F\                                "File+path
 set statusline+=%=
+set statusline+=%#StatusLine2#
 set statusline+=\ %y\                                  "FileType
+set statusline+=%#StatusLine5#
 set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..) 
+set statusline+=%#StatusLine4#
+set statusline+=%{b:branchname}
+set statusline+=%{b:gitstatus}
+set statusline+=%#StatusLine2#
 set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
 set statusline+=\ col:%03c\                            "Colnr
+set statusline+=%#StatusLine5#
 set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
 
 set laststatus=2

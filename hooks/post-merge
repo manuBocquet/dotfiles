@@ -34,6 +34,7 @@ myreplace ".bashrc" "./dotfiles/.bashrc"
 myreplace ".bash_profile" "./dotfiles/.bash_profile"
 myreplace ".bash_aliases" "./dotfiles/.bash_aliases"
 myreplace ".vimrc" "./dotfiles/.vimrc"
+myreplace ".gitconfig" "./dotfiles/.gitconfig"
 myreplace ".tmux.conf" "./dotfiles/.tmux.conf"
 
 source ~/.bashrc

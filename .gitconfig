@@ -1,0 +1,25 @@
+[user]
+	name = Emmanuel Bocquet
+	email = manu@unixdev.ca
+[core]
+	excludesfile = /Users/manu/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/manu/.stCommitMsg
+[alias]
+    last = log -1 HEAD --stat
+    cleanup = ls-files -i -c --exclude-from=.gitignore | xargs git rm --cached
+    br =  branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+    save = !git add -A && git commit -m 'commit save point'
+    hard = !git reset --hard
+    origin = !git push origin HEAD
+    zero = !git reset --hard && git checkout master && git fetch --all && git pull origin master
+    cmp = !git fetch --all && git diff origin master
+    lg = !git log --all --graph --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(yellow)(%cr) %C(dim blue)[%an]%Creset\"
+    ll = !git log --all --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(yellow)(%cr) %C(dim blue)[%an]%Creset\"
+    ignored = status --ignored
