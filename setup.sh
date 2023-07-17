@@ -4,12 +4,12 @@ cd ~/dotfiles
 
 if [[ ! -L ".git/hooks" ]]; then
     if [[ -e ".git/hooks" ]]; then
-        /usr/bin/mv .git/hooks .git/hooks.orig
+        /bin/mv .git/hooks .git/hooks.orig
     fi
-    /usr/bin/ln -s ../hooks .git/hooks
+    /bin/ln -s ../hooks .git/hooks
 fi
 
-/usr/bin/cp -p .bash* .vimrc .gitconfig .tmux* ~/
+/bin/cp -p .bash* .vimrc .gitconfig .tmux* ~/
 
 #if [[ ! -h "$HOME/.vim" ]]; then
 #    if [[ -e "~/.vim" ]]; then
