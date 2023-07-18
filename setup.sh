@@ -10,10 +10,4 @@ if [[ ! -L ".git/hooks" ]]; then
 fi
 
 /bin/cp -p .bash* .vimrc .gitconfig .tmux* ~/
-
-#if [[ ! -h "$HOME/.vim" ]]; then
-#    if [[ -e "~/.vim" ]]; then
-#        /usr/bin/mv ~/.vim ~/.vim.orig
-#    fi
-#    /usr/bin/ln -s ~/dotfiles/.vim ~/.vim
-#fi
+source ~/.bashrc
