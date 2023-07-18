@@ -28,10 +28,10 @@ def cl(bg2, ch=None, fg=255):
         return '\033[0m{}\033[0m'.format(ch)
     else:
         if ch:
-            ch='\033[1m\033[38;5;{};48;5;{}m{}'.format(bg1, bg2, sep)
+            ch='\033[0m\033[38;5;{};48;5;{}m{}'.format(bg1, bg2, sep)
         else:
             ch=''
-        return '{}\033[1m\033[38;5;{};48;5;{}m'.format(ch, fg, bg2)
+        return '{}\033[0m\033[38;5;{};48;5;{}m'.format(ch, fg, bg2)
 
 def error():
     if int(sys.argv[2]) != 0:
@@ -76,9 +76,12 @@ if len(error):
 
 print(" "*(int(nbcols)-right_len)+right,end = '',flush=True)
 subprocess.run(['tput', 'cub', str(nbcols)])
+start = cl(33)+' \A '
 if os.environ.get('ENV'):
-    out = cl(166,fg=226)+" "+os.environ.get('ENV')+" "+cl(81,1,fg=232)+' \\u@\\H '+cl(24,1,fg=255)+' \\w '+cl(-1,1)
+    start = cl(238,fg=208)+"⏵ "+os.environ.get('ENV')+" "
+if os.environ.get('USER') == 'root':
+    user = cl(160,1,fg=255)+' root '
 else:
-    out = cl(33)+' \A '+cl(81,1,fg=232)+' \\u@\\H '+cl(24,1,fg=255)+' \\w '+cl(-1,1)
-print(out)
+    user = cl(31,1,fg=255)+' \\u@\\H '
+print(start + user + cl(238,1,fg=255)+' \\w '+cl(-1,1))
 print("$ ")
