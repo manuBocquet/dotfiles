@@ -9,5 +9,9 @@ if [[ ! -L ".git/hooks" ]]; then
     /bin/ln -s ../hooks .git/hooks
 fi
 
+/usr/bin/git submodule init
+/usr/bin/git submodule update
+
 /bin/cp -p .bash* .vimrc .gitconfig .tmux* ~/
+
 source ~/.bashrc

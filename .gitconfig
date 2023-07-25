@@ -15,7 +15,7 @@
     last = log -1 HEAD --stat
     cleanup = ls-files -i -c --exclude-from=.gitignore | xargs git rm --cached
     br =  branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
-    save = !git add -A && git commit -m 'commit save point'
+    save = !git add -Am && git commit -m 'commit save point'
     hard = !git reset --hard
     origin = !git push origin HEAD
     zero = !git reset --hard && git checkout master && git fetch --all && git pull origin master
