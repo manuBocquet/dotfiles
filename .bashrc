@@ -27,6 +27,7 @@ shopt -s histappend
 export TTY=`tty`
 export REAL_USER=`ls -la ${TTY} | awk '{print $3}'`
 export EDITOR=vim
+
 # https://geoff.greer.fm/lscolors/
 export LSCOLORS='exfxcxdxcxexexcxcxdxdx'
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=34:cd=34:su=32:sg=32:tw=33:ow=33'
