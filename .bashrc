@@ -13,19 +13,22 @@ fi
 shopt -s histappend
 
 # Some settings ...
-TTY=`tty`
-REAL_USER=`ls -la ${TTY} | awk '{print $3}'`
-EDITOR=vim
-LSCOLORS='di=34:ln=32:so=32:pi=33:ex=33:bd=34:cd=34:su=31:sg=31:tw=32:ow=32'
-HISTTIMEFORMAT="%Y-%m-%d %T "
-GREP_OPTIONS='--color=always'
+export TTY=`tty`
+export REAL_USER=`ls -la ${TTY} | awk '{print $3}'`
+export EDITOR=vim
+# https://geoff.greer.fm/lscolors/
+export LSCOLORS='exfxcxdxcxexexcxcxdxdx'
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=34:cd=34:su=32:sg=32:tw=33:ow=33'
+export HISTTIMEFORMAT="%Y-%m-%d %T "
+export GREP_OPTIONS='--color=always'
 
 # History - don't put duplicate lines or lines starting with space in the history.
-HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
-HISTCONTROL=erasedups
-HISTFILE=~/.history_${REAL_USER}
+export HISTCONTROL=ignoreboth
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+export HISTCONTROL=erasedups
+export HISTFILE=~/.history_${REAL_USER}
+export HISTIGNORE='ls -l:ls -la:ls:pwd:date:'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
