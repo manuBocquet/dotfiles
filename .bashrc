@@ -20,6 +20,11 @@ if [[ -f /etc/bashrc ]]; then
     . /etc/bashrc
 fi
 
+# Alias definitions.
+if [[ -f ~/.bash_aliases ]]; then
+    . ~/.bash_aliases
+fi
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -48,11 +53,6 @@ shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Alias definitions.
-if [[ -f ~/.bash_aliases ]]; then
-    . ~/.bash_aliases
-fi
 
 # Specific bashrc definitions
 if [[ -f ~/.bashrc_local ]]; then
