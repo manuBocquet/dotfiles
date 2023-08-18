@@ -4,6 +4,13 @@ case $- in
       *) return;;
 esac
 
+# Functions divers
+
+function search {
+    local item=$1
+    /usr/bin/find . -type f -exec grep --color='auto' -in "${item}" /dev/null {} \;
+}
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

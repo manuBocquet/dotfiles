@@ -15,3 +15,5 @@ alias df='df -hTl'
 alias dfx='df -hTlt xfs'
 alias diff='diff --color'
 alias nodash="sed '/^\ *#/d'"
+alias ssh2="ssh -o ClearAllForwardings=yes"
+
