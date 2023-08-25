@@ -17,3 +17,6 @@ alias diff='diff --color'
 alias nodash="sed '/^\ *#/d'"
 alias ssh2="ssh -o ClearAllForwardings=yes"
 
+if [ -x /usr/bin/bat ]; then
+    alias b='bat -n'
+fi 
