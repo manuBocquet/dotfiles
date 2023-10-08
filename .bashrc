@@ -44,7 +44,7 @@ export EDITOR=vim
 export LSCOLORS='exfxcxdxcxexexcxcxdxdx'
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=34:cd=34:su=32:sg=32:tw=33:ow=33'
 export HISTTIMEFORMAT="%Y-%m-%d %T "
-export GREP_OPTIONS='--color=always'
+# export GREP_OPTIONS='--color=always'
 
 # History - don't put duplicate lines or lines starting with space in the history.
 export HISTCONTROL=ignoreboth
