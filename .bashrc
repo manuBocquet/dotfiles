@@ -11,6 +11,10 @@ function search {
     /usr/bin/find . -type f -exec grep --color='auto' -in "${item}" /dev/null {} \;
 }
 
+function term_title {
+    echo -ne "\033]0;"$*"\007"
+}
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -64,6 +68,10 @@ shopt -s checkwinsize
 # Specific bashrc definitions
 if [[ -f ~/.bashrc_local ]]; then
     . ~/.bashrc_local
+fi
+
+if [[ -n "${ENV}" ]]; then
+    term_title "${ENV}"
 fi
 
 # My python prompt
