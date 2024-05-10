@@ -11,12 +11,14 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias df='df -hl'
-alias dfx='df -hTlt xfs'
+alias ldf='df -hl'
+alias ldfx='df -hTlt xfs'
 alias diff='diff --color'
 alias nodash="sed '/^\ *#/d'"
 alias ssh2="ssh -o ClearAllForwardings=yes"
+alias lost="lsof +L1"
+alias ldu="du -xhd 1"
 
 if [ -x /usr/bin/bat ]; then
-    alias b='bat -n'
-fi 
+    alias cat='bat -n'
+fi
